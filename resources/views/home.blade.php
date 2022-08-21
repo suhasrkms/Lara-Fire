@@ -15,7 +15,7 @@
   @else
 
     <li class="nav-item">
-      <a class="nav-link text-dark" href="home/profile">{{ __('Profile') }}</a>
+      <a class="nav-link text-dark" href="/home/profile">{{ __('Profile') }}</a>
     </li>
 
     <li class="nav-item">

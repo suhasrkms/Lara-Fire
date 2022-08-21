@@ -35,8 +35,10 @@ class ResetController extends Controller
           try {
             $email = app('firebase.auth')->getUser($uid)->email;
             $link = app('firebase.auth')->sendEmailVerificationLink($email);
+            Session::flash('resend', 'Notify');
           } catch (FirebaseException $e) {
-            Session::flash('error', $e->getMessage());
+            $error = str_replace('_', ' ', $e->getMessage());
+            Session::flash('error', $error);
           }
           return view("reset.email");
         }

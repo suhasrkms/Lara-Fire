@@ -48,20 +48,29 @@
             @yield('navbar_home')
 
 
-    </ul>
-  </div>
-</div>
-</nav>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-<main class="py-4">
-  @yield('content')
-</main>
-</div>
-
-<footer id="sticky-footer" class="flex-shrink-0 py-4 text-dark-50">
-  <div class="container text-center">
-    <small>Made with ❤️ by <a href="https://www.youtube.com/channel/UCPj8ztcYe1D6SSuXPDpupeA" style="text-decoration: none;">Seven Stac</a></small>
+    <main class="py-4">
+      @yield('content')
+    </main>
   </div>
-</footer>
+
+  <footer id="sticky-footer" class="flex-shrink-0 py-4 text-dark-50">
+    <div class="container text-center">
+      <small>Made with ❤️ by <a href="https://www.youtube.com/channel/UCPj8ztcYe1D6SSuXPDpupeA" style="text-decoration: none;">Seven Stac</a></small>
+    </div>
+  </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert").alert('close');
+});
+});
+</script>
 </html>
