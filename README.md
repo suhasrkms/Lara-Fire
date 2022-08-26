@@ -1,5 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
 [![License: MIT](https://img.shields.io/github/license/suhasrkms/lara-fire)](https://opensource.org/licenses/MIT)
 [![GitHub forks](https://img.shields.io/github/forks/suhasrkms/lara-fire)](https://github.com/suhasrkms/lara-fire/network)
 [![GitHub stars](https://img.shields.io/github/stars/suhasrkms/lara-fire)](https://github.com/suhasrkms/lara-fire/stargazers)
