@@ -57,8 +57,15 @@ class RegisterController extends Controller
         'password' => $request->input('password'),
         'displayName' => $request->input('name'),
         'disabled' => false,
+        'role' => 'admin',
       ];
+
+      // Set custom claims ( for admin role)
+
+
+      // Create the user account
       $createdUser = $this->auth->createUser($userProperties);
+
       Session::flash('message', 'Information Uploaded');
       return redirect()->route('login');
     } catch (FirebaseException $e) {

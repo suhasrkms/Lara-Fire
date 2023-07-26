@@ -56,18 +56,20 @@ class LoginController extends Controller
       //uid Session
       $loginuid = $signInResult->firebaseUserId();
       Session::put('uid',$loginuid);
+      $auth = app('firebase.auth');
+      $auth->setCustomUserClaims($loginuid, ['admin' => false]);
 
       $result = Auth::login($user);
-      $userDetails = app('firebase.auth')->getUser($loginuid);
+      // $userDetails = app('firebase.auth')->getUser($loginuid);
 
       // Adding user data
 
-      $db = app('firebase.firestore')->database()->collection('Users')->document($loginuid);
-      $db->set([
-        'firstname' => $userDetails->displayName,
-        'role' => true,
-        'login_at' => Carbon::now()->toDayDateTimeString(),
-      ]);
+      // $db = app('firebase.firestore')->database()->collection('Users')->document($loginuid);
+      // $db->set([
+      //   'firstname' => $userDetails->displayName,
+      //   'role' => true,
+      //   'login_at' => Carbon::now()->toDayDateTimeString(),
+      // ]);
 
       return redirect($this->redirectPath());
     } catch (FirebaseException $e) {
