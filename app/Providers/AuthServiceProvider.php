@@ -10,24 +10,25 @@ use App\Firebase\FirebaseUserProvider;
 class AuthServiceProvider extends ServiceProvider
 {
   /**
-  * The policy mappings for the application.
-  *
-  * @var array
-  */
+   * The policy mappings for the application.
+   *
+   * @var array
+   */
   protected $policies = [
     // 'App\Models\Model' => 'App\Policies\ModelPolicy',
   ];
 
   /**
-  * Register any authentication / authorization services.
-  *
-  * @return void
-  */
-  public function boot() {
+   * Register any authentication / authorization services.
+   *
+   * @return void
+   */
+  public function boot()
+  {
 
     $this->registerPolicies();
 
-    \Illuminate\Support\Facades\Auth::provider('firebaseuserprovider', function($app, array $config) {
+    \Illuminate\Support\Facades\Auth::provider('firebaseuserprovider', function ($app, array $config) {
       return new FirebaseUserProvider($app['hash'], $config['model']);
     });
   }

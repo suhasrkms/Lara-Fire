@@ -11,6 +11,7 @@ use Kreait\Firebase\Auth\SignInResult\SignInResult;
 use Kreait\Firebase\Exception\FirebaseException;
 use Illuminate\Validation\ValidationException;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
 
 use Auth;
 use Session;
@@ -32,30 +33,32 @@ class LoginController extends Controller
   use AuthenticatesUsers;
 
   /**
-  * Where to redirect users after login.
-  *
-  * @var string
-  */
+   * Where to redirect users after login.
+   *
+   * @var string
+   */
   protected $auth;
   protected $redirectTo = RouteServiceProvider::HOME;
 
   /**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
-  public function __construct(FirebaseAuth $auth) {
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct(FirebaseAuth $auth)
+  {
     $this->middleware('guest')->except('logout');
     $this->auth = $auth;
   }
-  protected function login(Request $request) {
+  protected function login(Request $request)
+  {
     try {
       $signInResult = $this->auth->signInWithEmailAndPassword($request['email'], $request['password']);
       $user = new User($signInResult->data());
 
       //uid Session
       $loginuid = $signInResult->firebaseUserId();
-      Session::put('uid',$loginuid);
+      Session::put('uid', $loginuid);
       $auth = app('firebase.auth');
       $auth->setCustomUserClaims($loginuid, ['admin' => false]);
 
@@ -76,10 +79,12 @@ class LoginController extends Controller
       throw ValidationException::withMessages([$this->username() => [trans('auth.failed')],]);
     }
   }
-  public function username() {
+  public function username()
+  {
     return 'email';
   }
-  public function handleCallback(Request $request, $provider) {
+  public function handleCallback(Request $request, $provider)
+  {
     $socialTokenId = $request->input('social-login-tokenId', '');
     try {
       $verifiedIdToken = $this->auth->verifyIdToken($socialTokenId);

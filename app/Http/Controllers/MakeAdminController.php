@@ -10,7 +10,7 @@ use Session;
 class MakeAdminController extends Controller
 {
     public function index()
-    {                        
+    {
         $auth = app('firebase.auth');
         $uid = Session::get('uid');
         $auth->setCustomUserClaims($uid, ['admin' => true]);

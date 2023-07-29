@@ -13,23 +13,25 @@ class User extends Authenticatable
 
 
     protected $fillable = [
-      'displayName', 'email', 'localId',
-   ];
+        'displayName', 'email', 'localId',
+    ];
 
-   public function getAuthIdentifierName() {
-      return 'localId';
-   }
+    public function getAuthIdentifierName()
+    {
+        return 'localId';
+    }
 
-   public function getAuthIdentifier(){
-      return $this->localId;
-   }
+    public function getAuthIdentifier()
+    {
+        return $this->localId;
+    }
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    
+
 
     /**
      * The attributes that should be hidden for arrays.
