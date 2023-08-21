@@ -30,9 +30,9 @@
           <div class="container text-center mt-5">
             <h1 class="display-5">Welcome to our <a href="https://github.com/suhasrkms/Lara-Fire">Lara-Fire</a> <span>&#127881;</span></h1>
             <p class="lead">We've seamlessly integrated Firebase into our platform, enabling powerful features like <span class="text-danger">Firestore</span>, <span class="text-danger">Authentication</span>, <span class="text-danger">Email Verification</span>, and an <span class="text-danger">Admin Panel</span>. With Firebase, we ensure real-time data updates, secure user authentication, and efficient administration. Join us as we leverage Firebase to deliver an exceptional user experience.</p>
-          </div>
-
-        </div>
+            <p>Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</p>
+          </div>                        
+             </div>
       </div>
     </div>
   </div>
