@@ -13,15 +13,12 @@
       </li>
     @endif
   @else
-  
-  @if($user->customClaims['admin'])
-    <li class="nav-item">
-      <a class="nav-link text-dark" href="/home/admin">{{ __('Admin') }}</a>
-    </li>
-  @endif
-    <li class="nav-item">
-      <a class="nav-link text-dark" href="/home/admin">{{ __('Admin') }}</a>
-    </li>
+
+    @if($user->customClaims['admin'])
+        <li class="nav-item">
+        <a class="nav-link text-dark" href="/home/admin">{{ __('Admin') }}</a>
+        </li>
+    @endif
 
     <li class="nav-item">
       <a class="nav-link text-dark" href="/home/profile">{{ __('Profile') }}</a>
@@ -52,7 +49,7 @@
         </button>
       </div>
   @endif
-  
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -66,7 +63,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-                    <h1>{{$user->customClaims['admin']}}</h1>
+                    <h1>{{ $user->customClaims["admin"] }}</h1>
+
                 </div>
             </div>
         </div>

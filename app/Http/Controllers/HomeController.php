@@ -34,6 +34,7 @@ class HomeController extends Controller
     try {
       $uid = Session::get('uid');
       $user = app('firebase.auth')->getUser($uid);
+
       return view('home', compact('user'));
     } catch (\Exception $e) {
       return $e->getmessage();

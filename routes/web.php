@@ -29,7 +29,11 @@ Route::get('/home/iamadmin', [App\Http\Controllers\MakeAdminController::class, '
 
 Route::resource('/home/profile', App\Http\Controllers\Auth\ProfileController::class)->middleware('user','fireauth');
 
-Route::resource('/home/admin', App\Http\Controllers\Auth\AdminController::class)->middleware('user','fireauth');
+Route::resource('/home/admin', App\Http\Controllers\Auth\AdminController::class)
+    ->middleware('user')
+    ->middleware('fireauth')
+    ->middleware('isAdmin');
+
 
 Route::resource('/password/reset', App\Http\Controllers\Auth\ResetController::class);
 
