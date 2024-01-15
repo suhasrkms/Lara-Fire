@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Kreait\Firebase\Contract\Auth;
+use Kreait\Firebase\Exception\FirebaseException;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -14,7 +16,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('auth.admin');
+        $users = app('firebase.auth')->listUsers($defaultMaxResults = 1000, $defaultBatchSize = 1000);
+        $usersArray = iterator_to_array($users);
+        return view('auth.admin', ['users' => $usersArray]);
     }
 
     /**
