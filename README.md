@@ -1,6 +1,6 @@
+[![Latest Stable Version](https://poser.pugx.org/suhasrkms/lara-fire/v/stable)](https://packagist.org/packages/suhasrkms/lara-fire)
+[![Total Downloads](https://poser.pugx.org/suhasrkms/lara-fire/downloads)](https://packagist.org/packages/suhasrkms/lara-fire)
 [![License: MIT](https://img.shields.io/github/license/suhasrkms/lara-fire)](https://opensource.org/licenses/MIT)
-[![GitHub forks](https://img.shields.io/github/forks/suhasrkms/lara-fire)](https://github.com/suhasrkms/lara-fire/network)
-[![GitHub stars](https://img.shields.io/github/stars/suhasrkms/lara-fire)](https://github.com/suhasrkms/lara-fire/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/suhasrkms/lara-fire)](https://github.com/suhasrkms/lara-fire/issues)
 
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/suhasrkms/lara-fire/total.svg)]() -->
