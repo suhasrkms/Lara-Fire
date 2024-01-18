@@ -17,13 +17,18 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $uid = Session::get('uid');
-        $userClaim = app('firebase.auth')->getUser($uid)->customClaims["admin"];
 
-        if ($userClaim) {
-            return $next($request);
-        }
-        else {
-            return redirect('/home');
+        // Check if $uid is not null before making the getUser call
+        if ($uid !== null) {
+            $userClaim = app('firebase.auth')->getUser($uid)->customClaims["admin"];
+
+            if ($userClaim) {
+                return $next($request);
+            } else {
+                return redirect('/home')->with('error', 'You are not admin');
+            }
+        } else {
+            return redirect('/home')->with('message', 'You are not admin');
         }
     }
 }

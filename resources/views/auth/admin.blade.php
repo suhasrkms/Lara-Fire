@@ -156,7 +156,7 @@
                     <div class="col-3">
                         <div class="card rounded text-center h-100">
                             <div class="card-header bg-warning">Total Users</div>
-                            <div class="card-body display-4">08</div>
+                            <div class="card-body display-4">{{ count($users) }}</div>
                         </div>
                     </div>
 
