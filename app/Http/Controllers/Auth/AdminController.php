@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Kreait\Firebase\Contract\Auth;
+use Kreait\Firebase\Exception\FirebaseException;
 use App\Http\Controllers\Controller;
+
+use Session;
 
 class AdminController extends Controller
 {
@@ -14,7 +18,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('auth.admin');
+        $users = app('firebase.auth')->listUsers($defaultMaxResults = 1000, $defaultBatchSize = 1000);
+        $usersArray = iterator_to_array($users);
+        return view('auth.admin', ['users' => $usersArray]);
     }
 
     /**
@@ -35,7 +41,26 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+
+            $userProperties = [
+                'email' => $request->email,
+                'emailVerified' => false,
+                'password' => $request->password,
+                'displayName' => $request->displayName,
+                'disabled' => false,
+            ];
+
+            $createdUser = app('firebase.auth')->createUser($userProperties);
+
+            // return back()->withInput();
+            // return $request->all();;
+            Session::flash('message', 'New User Created');
+            return back()->withInput();
+        }
+        catch (FirebaseException $e) {
+          throw ValidationException::withMessages([$this->username() => [trans('auth.failed')],]);
+        }
     }
 
     /**
@@ -69,7 +94,23 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $uid = $id;
+        $properties = [
+            'email' => $request->email,
+            'emailVerified' => false,
+            'displayName' => $request->displayName,
+        ];
+
+        $updatedUser = app('firebase.auth')->updateUser($uid, $properties);
+        // $input = $request->all();
+        // $request->validate([
+        // 'displayName' => 'required|min:4|max:20',
+        // 'email' => 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+        // ]);
+        // $user = User::findOrFail($id);
+        // $user->update($input);
+        Session::flash('message', 'User Data Updated');
+        return back()->withInput();
     }
 
     /**
@@ -80,6 +121,21 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $auth = app('firebase.auth');
+            $user = $auth->getUser($id);
+            if($user->disabled) {
+                $updatedUser = $auth->enableUser($id);
+                Session::flash('message','The User has been enabled');
+            }
+            else {
+                $updatedUser = $auth->disableUser($id);
+                Session::flash('delete','The User has been deleted');
+            }
+        }
+        catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
+            Session::flash('delete',$e->getMessage());
+        }
+        return back()->withInput();
     }
 }

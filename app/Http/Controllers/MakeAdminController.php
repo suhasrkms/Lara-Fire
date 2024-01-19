@@ -13,7 +13,7 @@ class MakeAdminController extends Controller
     {
         $auth = app('firebase.auth');
         $uid = Session::get('uid');
-        $auth->setCustomUserClaims($uid, ['admin' => true]);
+        $auth->setCustomUserClaims($uid, ['admin' => false]);
         Session::flash('message', 'You are now an Admin');
         return redirect('/home');
     }

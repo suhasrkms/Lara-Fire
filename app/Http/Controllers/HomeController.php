@@ -32,9 +32,15 @@ class HomeController extends Controller
   {
     // FirebaseAuth.getInstance().getCurrentUser();
     try {
+
       $uid = Session::get('uid');
       $user = app('firebase.auth')->getUser($uid);
-      return view('home', compact('user'));
+      $users = app('firebase.auth')->listUsers($defaultMaxResults = 1000, $defaultBatchSize = 1000);
+
+      $usersArray = iterator_to_array($users);
+      $totalUsers = count($usersArray);
+
+      return view('home', compact('user','totalUsers'));
     } catch (\Exception $e) {
       return $e->getmessage();
     }
