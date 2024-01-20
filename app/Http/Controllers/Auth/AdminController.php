@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Exception\FirebaseException;
 use App\Http\Controllers\Controller;
-
 use Session;
 
 class AdminController extends Controller
@@ -18,9 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $currentUser = Session::get('uid');
         $users = app('firebase.auth')->listUsers($defaultMaxResults = 1000, $defaultBatchSize = 1000);
         $usersArray = iterator_to_array($users);
-        return view('auth.admin', ['users' => $usersArray]);
+        return view('auth.admin', ['users' => $usersArray, 'currentUser' => $currentUser]);
     }
 
     /**
@@ -126,16 +126,17 @@ class AdminController extends Controller
             $user = $auth->getUser($id);
             if($user->disabled) {
                 $updatedUser = $auth->enableUser($id);
-                Session::flash('message','The User has been enabled');
+                return back()->with('message','The User has been enabled');
+                // Session::flash('delete','The User has been enabled');
             }
             else {
                 $updatedUser = $auth->disableUser($id);
-                Session::flash('delete','The User has been deleted');
+                // Session::flash('delete','The User has been deleted');
+                return back()->with('delete', 'The User has been disabled');
             }
         }
         catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
-            Session::flash('delete',$e->getMessage());
+            return  back()->with('error', $e->getMessage());
         }
-        return back()->withInput();
     }
 }
