@@ -127,11 +127,9 @@ class AdminController extends Controller
             if($user->disabled) {
                 $updatedUser = $auth->enableUser($id);
                 return back()->with('message','The User has been enabled');
-                // Session::flash('delete','The User has been enabled');
             }
             else {
                 $updatedUser = $auth->disableUser($id);
-                // Session::flash('delete','The User has been deleted');
                 return back()->with('delete', 'The User has been disabled');
             }
         }

@@ -252,34 +252,40 @@
                                                             <div class="modal-body">
                                                                 <!-- Example: Form fields for editing user details -->
 
-                                                                {!! Form::model($user, ['method'=>'PATCH', 'action'=> ['App\Http\Controllers\Auth\AdminController@update',$user->uid]]) !!}
+                                                                <form method="POST" action="{{ action('App\Http\Controllers\Auth\AdminController@update', $user->uid) }}">
+                                                                    @method('PATCH')
+                                                                    @csrf
 
-                                                                <div class="form-group">
-                                                                    {!! Form::label('displayName', 'First Name:') !!}
-                                                                    {!! Form::text('displayName', null, ['class'=>'form-control'])!!}
-                                                                </div>
+                                                                    <div class="form-group">
+                                                                        <label for="displayName">First Name:</label>
+                                                                        <input type="text" name="displayName" id="displayName" class="form-control" value="{{ $user->displayName }}">
+                                                                    </div>
 
-                                                                <div class="form-group">
-                                                                    {!! Form::label('email', 'Email:') !!}
-                                                                    {!! Form::email('email', null, ['class'=>'form-control'])!!}
-                                                                </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email">Email:</label>
+                                                                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                                                                    </div>
 
-                                                                <div class="modal-footer border-0">
+                                                                    <div class="modal-footer border-0">
+                                                                        <button type="submit" class="btn btn-success">Save changes</button>
+
+                                                                </form>
 
 
-                                                                {{-- <button type="button" class="btn btn-success">Save changes</button> --}}
-                                                                    {!! Form::submit('Save changes', ['class'=>'btn btn-success']) !!}
-                                                                {!! Form::close() !!}
-
-                                                                @if ($user->disabled)
-                                                                        {!! Form::open(['method'=>'DELETE', 'action'=> ['App\Http\Controllers\Auth\AdminController@destroy',$user->uid]]) !!}
-                                                                            {!! Form::submit('Enable Account', ['class'=>'btn btn-success']) !!}
-                                                                        {!! Form::close() !!}
-                                                                    @else
-                                                                        {!! Form::open(['method'=>'DELETE', 'action'=> ['App\Http\Controllers\Auth\AdminController@destroy',$user->uid]]) !!}
-                                                                            {!! Form::submit('Disable Account', ['class'=>'btn btn-danger']) !!}
-                                                                        {!! Form::close() !!}
+                                                               @if ($user->disabled)
+                                                                    <form method="POST" action="{{ action('App\Http\Controllers\Auth\AdminController@destroy', $user->uid) }}">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-success">Enable Account</button>
+                                                                    </form>
+                                                                @else
+                                                                    <form method="POST" action="{{ action('App\Http\Controllers\Auth\AdminController@destroy', $user->uid) }}">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-danger">Disable Account</button>
+                                                                    </form>
                                                                 @endif
+
 
                                                                 </div>
                                                             </div>
@@ -301,28 +307,29 @@
                 <h5 class="card-header">Add New User</h5>
                 <div class="card-body">
                     <!-- New User Form -->
-                    {!! Form::open(['method'=>'POST', 'action'=> 'App\Http\Controllers\Auth\AdminController@store']) !!}
+                   <form method="POST" action="{{ action('App\Http\Controllers\Auth\AdminController@store') }}">
+                        @csrf
 
-                    <div class="form-group">
-                        {!! Form::label('displayName', 'Display Name:') !!}
-                        {!! Form::text('displayName', null, ['class'=>'form-control'])!!}
-                    </div>
+                        <div class="form-group">
+                            <label for="displayName">Display Name:</label>
+                            <input type="text" name="displayName" id="displayName" class="form-control" value="{{ old('displayName') }}">
+                        </div>
 
-                    <div class="form-group">
-                        {!! Form::label('email', 'Email:') !!}
-                        {!! Form::email('email', null, ['class'=>'form-control'])!!}
-                    </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                        </div>
 
-                    <div class="form-group">
-                        {!! Form::label('password', 'Password:') !!}
-                        {!! Form::password('password', ['class'=>'form-control'])!!}
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                        </div>
+                    </form>
 
-                    {!! Form::close() !!}
 
                 </div>
             </div>
