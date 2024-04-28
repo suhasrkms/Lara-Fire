@@ -1,7 +1,7 @@
 {
     "name": "suhasrkms/lara-fire",
     "type": "project",
-    "description": "Introducing a Laravel-Firebase Package | A comprehensive solution seamlessly integrating Laravel's robust framework with Firebase's powerful features. This package provides developers with: Authentication: Effortless user sign-up and login processes, ensuring security and ease of use. Profile Management: Flexible tools for users to manage their profiles, fostering a personalized experience. Admin Dashboard: A user-friendly dashboard for administrators to monitor and manage user activity effectively. Forgot Password Functionality: Seamless password recovery for users, minimizing disruption to access. Designed as a package, it offers easy installation and integration into Laravel projects, streamlining development and enhancing functionality. Whether you're launching a new project or expanding an existing one, our Laravel-Firebase package provides a solid foundation for success",
+    "description": "Introducing a Laravel-Firebase Package | A comprehensive solution seamlessly integrating Laravel's robust framework with Firebase's powerful features. This package provides developers with: Authentication: Effortless user sign-up and login processes, ensuring security and ease of use.",
     "keywords": [
         "framework",
         "laravel",
