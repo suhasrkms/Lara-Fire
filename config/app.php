@@ -168,7 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-         Kreait\Laravel\Firebase\ServiceProvider::class,
+        Spatie\Html\HtmlServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+
     ])->toArray(),
 
     /*

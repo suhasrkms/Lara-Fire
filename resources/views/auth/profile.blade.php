@@ -71,23 +71,23 @@
         <div class="col-lg-8 text-center pt-0">
           <div class="card py-4 mb-5 mt-md-3 bg-white rounded " style="box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175)">
 
-            {!! Form::model($user, ['method'=>'PATCH', 'action'=> ['App\Http\Controllers\Auth\ProfileController@update',$user->uid]]) !!}
-            {!! Form::open() !!}
+            {{ html()->modelForm($user,'PATCH', route('profile.update',[$user->uid]))->open() }}
 
-            <div class="form-group px-3">
-              {!! Form::label('displayName', 'Name ',['class'=>'col-12 text-left pl-0']) !!}
-              {!! Form::text('displayName', null, ['class'=>' col-md-8 form-control'])!!}
+                <div class="form-group px-3">
+                    {{ html()->label('Name : ')->class('col-12 text-left pl-0') }}
+                    {{ html()->text('displayName')->class('col-md-8 form-control') }}
 
-              {!! Form::label('email', 'Email ',['class'=>'pt-3 col-12 text-left pl-0']) !!}
-              {!! Form::email('email', null, ['class'=>'col-md-8 form-control'])!!}
+                    {{ html()->label('Email : ')->class('col-12 text-left pl-0 pt-3') }}
+                    {{ html()->email('email')->class('col-md-8 form-control') }}
+                </div>
 
-            </div>
+                <div class="form-group row mb-0 mr-4">
 
-            <div class="form-group row mb-0 mr-4">
               <div class="col-md-8 offset-md-4 text-right">
-                {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
+                {{ html()->submit('Save')->class('btn btn-primary') }}
               </div>
             </div>
+
 
           </div>
         </div>
@@ -104,22 +104,23 @@
           <div class="col-lg-8 text-center pt-0">
             <div class="card py-4 mb-5 mt-md-3 bg-white rounded" style="box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175)">
 
-              <div class="form-group px-3">
-                {!! Form::label('new_password', 'New Password:',['class'=>'col-12 text-left pl-0']) !!}
-                {!! Form::password('new_password', ['class'=>'col-md-8 form-control'])!!}
-              </div>
-
-              <div class="form-group px-3">
-                {!! Form::label('new_confirm_password', 'Confirm Password:',['class'=>'col-12 text-left pl-0']) !!}
-                {!! Form::password('new_confirm_password', ['class'=>'col-md-8 form-control'])!!}
-              </div>
-
-              <div class="form-group row mb-0 mr-4">
-                <div class="col-md-8 offset-md-4 text-right">
-                  {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
+                <div class="form-group px-3">
+                     {{ html()->label('New Password : ')->class('col-12 text-left pl-0') }}
+                    {{ html()->password('new_password')->class('col-md-8 form-control') }}
                 </div>
+
+                <div class="form-group px-3">
+                     {{ html()->label('Confirm Password : ')->class('col-12 text-left pl-0') }}
+                    {{ html()->password('new_confirm_password')->class('col-md-8 form-control') }}
+                </div>
+
+                <div class="form-group row mb-0 mr-4">
+                    <div class="col-md-8 offset-md-4 text-right">
+                    {{ html()->submit('Save')->class('btn btn-primary') }}
+                    </div>
               </div>
-              {!! Form::close() !!}
+
+               {{ html()->closeModelForm() }}
             </div>
           </div>
 
@@ -139,14 +140,15 @@
                   Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
                 </div>
 
-                {!! Form::open(['method'=>'DELETE', 'action' =>['App\Http\Controllers\Auth\ProfileController@destroy',$user->uid]]) !!}
-                {!! Form::open() !!}
+
+                {{ html()->modelForm($user,'DELETE', route('profile.destroy',[$user->uid]))->open() }}
                 <div class="form-group row mb-0 mr-4 pt-4 px-3">
                   <div class="col-md-8 offset-l-4 text-left">
-                    {!! Form::submit('Delete Account', ['class'=>'btn btn-danger pl-3']) !!}
+                    {{ html()->submit('Delete Account')->class('btn btn-danger pl-3') }}
                   </div>
                 </div>
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
+
               </div>
             </div>
 

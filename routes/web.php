@@ -27,7 +27,12 @@ Route::post('login/{provider}/callback', 'Auth\LoginController@handleCallback');
 
 Route::get('/home/iamadmin', [App\Http\Controllers\MakeAdminController::class, 'index'])->middleware('user','fireauth');
 
-Route::resource('/home/profile', App\Http\Controllers\Auth\ProfileController::class)->middleware('user','fireauth');
+// Route::resource('/home/profile', App\Http\Controllers\Auth\ProfileController::class)->name('profile')->middleware('user','fireauth');
+
+Route::get('/home/profile', [App\Http\Controllers\Auth\ProfileController::class, 'index'])->name('profile.index')->middleware('user','fireauth');
+Route::patch('/home/profile/update/{profile}', [App\Http\Controllers\Auth\ProfileController::class, 'update'])->name('profile.update')->middleware('user','fireauth');
+Route::delete('/home/profile/delete/{profile}', [App\Http\Controllers\Auth\ProfileController::class, 'destroy'])->name('profile.destroy')->middleware('user','fireauth');
+
 
 Route::resource('/home/admin', App\Http\Controllers\Auth\AdminController::class)
     ->middleware('user')
