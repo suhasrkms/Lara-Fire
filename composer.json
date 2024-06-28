@@ -1,7 +1,7 @@
 {
     "name": "suhasrkms/lara-fire",
     "type": "project",
-    "description": "A Laravel project which connects you to firebase.",
+    "description": "Introducing a Laravel-Firebase Package | A comprehensive solution seamlessly integrating Laravel's robust framework with Firebase's powerful features. This package provides developers with: Authentication: Effortless user sign-up and login processes, ensuring security and ease of use.",
     "keywords": [
         "framework",
         "laravel",
