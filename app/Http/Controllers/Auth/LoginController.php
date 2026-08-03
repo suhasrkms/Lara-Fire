@@ -2,103 +2,85 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Auth\FirebaseUserProvider;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Kreait\Firebase\Contract\Auth as FirebaseAuth;
-use Kreait\Firebase\Auth\SignInResult\SignInResult;
-use Kreait\Firebase\Exception\FirebaseException;
-use Illuminate\Validation\ValidationException;
-use Carbon\Carbon;
-
 use Illuminate\Support\Facades\Auth;
-use Session;
-use App\Models\User;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
+use Kreait\Firebase\Contract\Auth as FirebaseAuth;
+use Throwable;
 
 class LoginController extends Controller
 {
-  /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-  use AuthenticatesUsers;
-
-  /**
-   * Where to redirect users after login.
-   *
-   * @var string
-   */
-  protected $auth;
-  protected $redirectTo = RouteServiceProvider::HOME;
-
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct(FirebaseAuth $auth)
-  {
-    $this->middleware('guest')->except('logout');
-    $this->auth = app("firebase.auth");
-  }
-  protected function login(Request $request)
-  {
-    try {
-      $auth = app('firebase.auth');
-      $signInResult = $auth->signInWithEmailAndPassword($request['email'], $request['password']);
-      $user = new User($signInResult->data());
-
-      //uid Session
-      $loginuid = $signInResult->firebaseUserId();
-      Session::put('uid', $loginuid);
-      $auth = app('firebase.auth');
-      $auth->setCustomUserClaims($loginuid, ['admin' => false]);
-
-      $result = Auth::login($user);
-      // $userDetails = app('firebase.auth')->getUser($loginuid);
-
-      // Adding user data
-
-      // $db = app('firebase.firestore')->database()->collection('Users')->document($loginuid);
-      // $db->set([
-      //   'firstname' => $userDetails->displayName,
-      //   'role' => true,
-      //   'login_at' => Carbon::now()->toDayDateTimeString(),
-      // ]);
-
-      return redirect($this->redirectPath());
-    } catch (FirebaseException $e) {
-      throw ValidationException::withMessages([$this->username() => [trans('auth.failed')],]);
+    public function create(): View
+    {
+        return view('auth.login', [
+            'socialProviders' => config('larafire.social_providers', []),
+        ]);
     }
-  }
-  public function username()
-  {
-    return 'email';
-  }
-  public function handleCallback(Request $request, $provider)
-  {
-    $socialTokenId = $request->input('social-login-tokenId', '');
-    try {
-      $verifiedIdToken = $this->auth->verifyIdToken($socialTokenId);
-      $user = new User();
-      $user->displayName = $verifiedIdToken->getClaim('name');
-      $user->email = $verifiedIdToken->getClaim('email');
-      $user->localId = $verifiedIdToken->getClaim('user_id');
-      Auth::login($user);
-      return redirect($this->redirectPath());
-    } catch (\InvalidArgumentException $e) {
-      return redirect()->route('login');
-    } catch (InvalidToken $e) {
-      return redirect()->route('login');
+
+    public function store(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        if (! Auth::attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('home'));
     }
-  }
+
+    /**
+     * Social sign-in: the browser signs in with the Firebase JS SDK and posts the ID token here.
+     */
+    public function firebase(Request $request, FirebaseAuth $auth, FirebaseUserProvider $users): RedirectResponse
+    {
+        $request->validate(['id_token' => ['required', 'string']]);
+
+        try {
+            $token = $auth->verifyIdToken($request->string('id_token')->toString());
+        } catch (Throwable) {
+            return redirect()->route('login')->with('error', 'Social sign-in failed. Please try again.');
+        }
+
+        $firebaseClaim = (array) $token->claims()->get('firebase', []);
+        if (($firebaseClaim['sign_in_provider'] ?? null) === 'anonymous') {
+            return redirect()->route('login')->with('error', 'Anonymous accounts cannot sign in here.');
+        }
+
+        $authTime = (int) $token->claims()->get('auth_time', 0);
+        if ($authTime < now()->subMinutes(5)->getTimestamp()) {
+            return redirect()->route('login')->with('error', 'Sign-in expired. Please try again.');
+        }
+
+        $user = $users->fresh((string) $token->claims()->get('sub'));
+
+        if (! $user) {
+            return redirect()->route('login')->with('error', 'This account is disabled.');
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('home'));
+    }
+
+    public function destroy(Request $request): RedirectResponse
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('welcome');
+    }
 }
