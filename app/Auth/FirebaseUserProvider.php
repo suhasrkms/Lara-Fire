@@ -6,9 +6,9 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\Container;
+use Kreait\Firebase\Auth\SignIn\FailedToSignIn;
 use Kreait\Firebase\Contract\Auth as FirebaseAuth;
 use Kreait\Firebase\Exception\Auth\UserNotFound;
-use Kreait\Firebase\Exception\FirebaseException;
 
 /**
  * Resolves the session user from Firebase Auth (cached for a short TTL).
@@ -88,7 +88,8 @@ class FirebaseUserProvider implements UserProvider
                 (string) ($credentials['email'] ?? ''),
                 (string) ($credentials['password'] ?? ''),
             );
-        } catch (FirebaseException) {
+        } catch (FailedToSignIn) {
+            // Wrong email/password. Connection errors bubble up to the controller.
             return null;
         }
 

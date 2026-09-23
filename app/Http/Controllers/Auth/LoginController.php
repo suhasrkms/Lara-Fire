@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Kreait\Firebase\Contract\Auth as FirebaseAuth;
+use Kreait\Firebase\Exception\FirebaseException;
 use Throwable;
 
 class LoginController extends Controller
@@ -28,7 +29,16 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials)) {
+        try {
+            $ok = Auth::attempt($credentials);
+        } catch (FirebaseException $e) {
+            report($e);
+
+            return back()->withInput($request->only('email'))
+                ->with('error', 'Could not reach Firebase. Check storage/logs/laravel.log.');
+        }
+
+        if (! $ok) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
@@ -48,7 +58,9 @@ class LoginController extends Controller
 
         try {
             $token = $auth->verifyIdToken($request->string('id_token')->toString());
-        } catch (Throwable) {
+        } catch (Throwable $e) {
+            report($e);
+
             return redirect()->route('login')->with('error', 'Social sign-in failed. Please try again.');
         }
 
