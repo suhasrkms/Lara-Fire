@@ -7,7 +7,7 @@ All notable changes to Lara Fire are listed here.
 ### Added
 - **Laravel 13** with the slim application structure (`bootstrap/app.php`) and PHP 8.3+.
 - **Social login** with Google and GitHub through the Firebase JS SDK v12. The server verifies the ID token.
-- **Cloud Firestore Notes**: per-user CRUD example (optional, needs `ext-grpc`).
+- **Cloud Firestore Notes**: per-user CRUD over the Firestore REST API. No `ext-grpc` is needed, so it works on Windows.
 - **Push notifications (FCM)**: users opt in per browser, and admins can broadcast or target one user.
 - **REST API** `/api/v1` secured with Firebase ID tokens (`me`, `notes`).
 - Admin panel: search, stats, provider breakdown, grant/revoke admin, send password reset, enable/disable.
@@ -27,7 +27,7 @@ All notable changes to Lara Fire are listed here.
 - Rate limiting on login, register, password reset and the API.
 
 ### Removed
-- `laravel/ui`, `laravel/sanctum` and `spatie/laravel-html`. The Firestore client is now optional.
+- `laravel/ui`, `laravel/sanctum`, `spatie/laravel-html` and `google/cloud-firestore`, along with the gRPC dependency.
 
 ## [1.x]
 

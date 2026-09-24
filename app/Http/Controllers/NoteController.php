@@ -17,7 +17,15 @@ class NoteController extends Controller
             return view('notes.unavailable');
         }
 
-        return view('notes.index', ['notes' => $this->notes->forUser($request->user()->uid)]);
+        try {
+            $notes = $this->notes->forUser($request->user()->uid);
+        } catch (\RuntimeException $e) {
+            report($e);
+
+            return view('notes.unavailable', ['error' => $e->getMessage()]);
+        }
+
+        return view('notes.index', ['notes' => $notes]);
     }
 
     public function create(): View
@@ -66,7 +74,7 @@ class NoteController extends Controller
 
     protected function ensureAvailable(): void
     {
-        abort_unless(NoteRepository::available(), 503, 'Firestore is not installed. See README → Firestore.');
+        abort_unless(NoteRepository::available(), 503, 'Firestore is not configured. See README → Firestore.');
     }
 
     /** @return array{title: string, body: ?string} */

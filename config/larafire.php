@@ -49,6 +49,9 @@ return [
 
     'firestore' => [
         'notes_collection' => env('LARAFIRE_NOTES_COLLECTION', 'notes'),
+        // Defaults to project_id from the service account JSON.
+        'project_id' => env('LARAFIRE_FIRESTORE_PROJECT_ID'),
+        'database' => env('LARAFIRE_FIRESTORE_DATABASE', '(default)'),
     ],
 
     'youtube_url' => 'https://www.youtube.com/@sevenstac',

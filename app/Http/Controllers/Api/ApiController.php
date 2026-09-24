@@ -59,7 +59,7 @@ class ApiController extends Controller
 
     protected function requireFirestore(): void
     {
-        abort_unless(NoteRepository::available(), 503, 'Firestore is not installed on this server.');
+        abort_unless(NoteRepository::available(), 503, 'Firestore is not configured on this server.');
     }
 
     /** @return array{title: string, body: ?string} */

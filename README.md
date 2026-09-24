@@ -13,7 +13,7 @@
 |---|---|
 | 🔐 | Email/password, **Google** and **GitHub** sign-in, email verification, password reset |
 | 🛡️ | **Admin panel**: search, stats, grant/revoke admin, enable/disable users, send reset links |
-| 🗂️ | **Cloud Firestore** Notes module: per-user CRUD (optional) |
+| 🗂️ | **Cloud Firestore** Notes module: per-user CRUD over REST, with no gRPC needed |
 | 🔔 | **FCM push**: users opt in per browser, and admins broadcast or target one user |
 | 🔌 | **REST API** `/api/v1` authenticated with `Authorization: Bearer <Firebase ID token>` |
 | 🌙 | Bootstrap 5.3 UI with dark mode, built with Vite 8 |
@@ -48,14 +48,7 @@ php artisan larafire:make-admin you@example.com
 Generate a key pair under Project settings → Cloud Messaging → *Web Push certificates* and set `FIREBASE_WEB_VAPID_KEY`. Users click **Enable on this device** on the dashboard. Admins send messages from **Admin → Push notifications**. The app uses topics (`larafire-all`, `larafire-user-<uid>`), so tokens don't need to be stored.
 
 ### Cloud Firestore
-The Firestore client needs the `grpc` PHP extension:
-
-```bash
-pecl install grpc            # Windows: download php_grpc.dll and enable it in php.ini
-composer require google/cloud-firestore
-```
-
-Create a Firestore database in the console. Notes are stored in `notes/{id}` as `{ uid, title, body, created_at, updated_at }`. Suggested security rules if you also read Firestore from clients:
+Notes use Firestore's REST API with your service account. You don't need the `grpc` extension or any extra package, and it works on Windows as-is. Create the database in Firebase console → **Firestore Database** → *Create database*. Notes are stored in `notes/{id}` as `{ uid, title, body, created_at, updated_at }`. Suggested security rules if you also read Firestore from clients:
 
 ```
 match /notes/{id} {

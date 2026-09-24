@@ -6,12 +6,15 @@
 <div class="container" style="max-width: 760px">
     <div class="card">
         <div class="card-body p-4 p-md-5">
-            <h1 class="h4 fw-bold">Enable Cloud Firestore</h1>
-            <p class="text-body-secondary">The Notes module needs the Firestore client, which depends on the <code>grpc</code> PHP extension.</p>
+            <h1 class="h4 fw-bold">Set up Cloud Firestore</h1>
+            @isset($error)
+                <div class="alert alert-danger small">{{ $error }}</div>
+            @endisset
+            <p class="text-body-secondary">Notes are stored in Cloud Firestore through its REST API. No PHP extensions needed.</p>
             <ol class="mb-0">
-                <li>Install ext-grpc (<code>pecl install grpc</code>, or the DLL on Windows) and enable it in <code>php.ini</code>.</li>
-                <li>Run <code>composer require google/cloud-firestore</code>.</li>
-                <li>Create a Firestore database in the Firebase console.</li>
+                <li>Put your service account JSON at <code>storage/app/firebase/service-account.json</code>.</li>
+                <li>In the Firebase console open <strong>Firestore Database</strong> → <strong>Create database</strong>.</li>
+                <li>Reload this page.</li>
             </ol>
         </div>
     </div>

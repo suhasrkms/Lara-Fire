@@ -25,7 +25,7 @@ class About extends Command
         $this->components->twoColumnDetail('Service account', $credentials && (str_starts_with($credentials, '{') || is_file($path)) ? '<fg=green>found</>' : '<fg=red>missing</> ('.($credentials ?: 'FIREBASE_CREDENTIALS').')');
         $this->components->twoColumnDetail('Web config (social login / FCM)', filled(config('larafire.web.apiKey')) ? '<fg=green>set</>' : '<fg=yellow>not set</>');
         $this->components->twoColumnDetail('FCM VAPID key', filled(config('larafire.vapid_key')) ? '<fg=green>set</>' : '<fg=yellow>not set</>');
-        $this->components->twoColumnDetail('Firestore (ext-grpc + google/cloud-firestore)', NoteRepository::available() ? '<fg=green>available</>' : '<fg=yellow>not installed</>');
+        $this->components->twoColumnDetail('Firestore (REST)', NoteRepository::available() ? '<fg=green>ready</>' : '<fg=yellow>needs service account</>');
 
         $this->newLine();
         $this->line('  Next steps:');
