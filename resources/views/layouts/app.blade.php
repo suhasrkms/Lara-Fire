@@ -46,8 +46,8 @@
             </span>
             <span>
                 Made with ❤️ by
-                <a href="{{ config('larafire.youtube_url') }}" target="_blank" rel="noopener" class="link-secondary">Seven Stac</a>
-                · <a href="{{ config('larafire.repository_url') }}" target="_blank" rel="noopener" class="link-secondary">GitHub</a>
+                <a href="https://github.com/suhasrkms" target="_blank" rel="noopener" class="link-secondary">suhasrkms</a>
+                · <a href="{{ config('larafire.youtube_url') }}" target="_blank" rel="noopener" class="link-secondary">YouTube</a>
             </span>
         </div>
     </footer>
