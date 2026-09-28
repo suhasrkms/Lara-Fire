@@ -34,7 +34,7 @@ class About extends Command
         $this->line('   3. <fg=cyan>npm install && npm run build</> then <fg=cyan>php artisan serve</>');
         $this->line('   4. Register, then <fg=cyan>php artisan larafire:make-admin you@example.com</>');
         $this->newLine();
-        $this->line('  Docs & updates: <fg=cyan>'.config('larafire.repository_url').'</>  ·  Videos: <fg=cyan>'.config('larafire.youtube_url').'</>');
+        $this->line('  Docs: <fg=cyan>https://suhasrkms.github.io/lara-fire-docs.html</>  ·  Code: <fg=cyan>'.config('larafire.repository_url').'</>  ·  Videos: <fg=cyan>'.config('larafire.youtube_url').'</>');
         $this->newLine();
 
         return self::SUCCESS;

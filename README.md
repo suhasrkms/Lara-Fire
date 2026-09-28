@@ -18,6 +18,8 @@
 | 🔌 | **REST API** `/api/v1` authenticated with `Authorization: Bearer <Firebase ID token>` |
 | 🌙 | Bootstrap 5.3 UI with dark mode, built with Vite 8 |
 
+📖 **Full documentation: [suhasrkms.github.io/lara-fire-docs.html](https://suhasrkms.github.io/lara-fire-docs.html)**
+
 ## Quick start
 
 ```bash
