@@ -1,42 +1,46 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "suhasrkms/lara-fire",
     "type": "project",
-    "description": "Introducing a Laravel-Firebase Package | A comprehensive solution seamlessly integrating Laravel's robust framework with Firebase's powerful features. This package provides developers with: Authentication: Effortless user sign-up and login processes, ensuring security and ease of use.",
+    "description": "Laravel 13 + Firebase starter kit: Firebase Auth (email, Google, GitHub), admin panel with custom claims, Cloud Firestore CRUD, FCM push notifications and a Firebase ID-token REST API.",
     "keywords": [
-        "framework",
         "laravel",
         "firebase",
+        "firebase-auth",
         "fcm",
-        "cloud firestore",
-        "realtime database",
+        "cloud-firestore",
+        "starter-kit",
         "admin-panel"
     ],
+    "homepage": "https://github.com/suhasrkms/Lara-Fire",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Suhas R",
+            "homepage": "https://suhasrkms.github.io"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/suhasrkms/Lara-Fire/issues",
+        "source": "https://github.com/suhasrkms/Lara-Fire"
+    },
     "require": {
-        "php": "^8.1",
-        "google/cloud-firestore": "^1.31",
-        "guzzlehttp/guzzle": "^7.2",
-        "kreait/laravel-firebase": "^5.2",
-        "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.2",
-        "spatie/laravel-html": "^3.5"
+        "php": "^8.3",
+        "kreait/laravel-firebase": "^7.2",
+        "laravel/framework": "^13.17",
+        "laravel/tinker": "^3.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0"
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.5",
+        "laravel/pint": "^1.27",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^12.5.12"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -45,6 +49,24 @@
         }
     },
     "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan dev"
+        ],
+        "lint": [
+            "pint"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -56,7 +78,11 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php artisan larafire:about --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
     "extra": {

@@ -1,3 +1,6 @@
 *
 !public/
+!firebase/
+firebase/*
+!firebase/.gitkeep
 !.gitignore

@@ -1,16 +1,20 @@
 {
+    "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.8",
+        "firebase": "^12.19.0"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.11.6",
-        "axios": "^1.1.2",
-        "bootstrap": "^5.2.3",
-        "laravel-vite-plugin": "^0.7.5",
-        "sass": "^1.56.1",
-        "vite": "^4.0.0"
+        "concurrently": "^9.2.0",
+        "laravel-vite-plugin": "^3.2.0",
+        "sass": "^1.105.0",
+        "vite": "^8.3.1"
     }
 }
