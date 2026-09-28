@@ -121,3 +121,7 @@ Issues and PRs are welcome. Please run `composer lint` and `composer test` befor
 ## License
 
 MIT © [Suhas R](https://suhasrkms.github.io)
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/suhasrkms">suhasrkms</a></p>
