@@ -18,6 +18,10 @@
 | 🔌 | **REST API** `/api/v1` authenticated with `Authorization: Bearer <Firebase ID token>` |
 | 🌙 | Bootstrap 5.3 UI with dark mode, built with Vite 8 |
 
+![Lara Fire admin panel](.github/screenshots/admin-dark.png)
+
+<p align="center"><img src=".github/screenshots/login.png" width="32%" alt="Login"> <img src=".github/screenshots/dashboard.png" width="32%" alt="Dashboard"> <img src=".github/screenshots/notes.png" width="32%" alt="Firestore notes"></p>
+
 📖 **Full documentation: [suhasrkms.github.io/lara-fire-docs.html](https://suhasrkms.github.io/lara-fire-docs.html)**
 
 ## Quick start
