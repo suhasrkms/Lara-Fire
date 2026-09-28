@@ -6,6 +6,9 @@
 [![Total Downloads](https://poser.pugx.org/suhasrkms/lara-fire/downloads)](https://packagist.org/packages/suhasrkms/lara-fire)
 [![tests](https://github.com/suhasrkms/Lara-Fire/actions/workflows/tests.yml/badge.svg)](https://github.com/suhasrkms/Lara-Fire/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/github/license/suhasrkms/lara-fire)](LICENSE.md)
+[![Docs](https://img.shields.io/badge/docs-lara--fire-FFC107?logo=readthedocs&logoColor=black)](https://suhasrkms.github.io/lara-fire-docs.html)
+
+**[📖 Documentation](https://suhasrkms.github.io/lara-fire-docs.html)** · [Installation](https://suhasrkms.github.io/lara-fire-docs.html#installation) · [Firebase setup](https://suhasrkms.github.io/lara-fire-docs.html#firebase-setup) · [REST API](https://suhasrkms.github.io/lara-fire-docs.html#api) · [Troubleshooting](https://suhasrkms.github.io/lara-fire-docs.html#troubleshooting) · [▶ Videos](https://www.youtube.com/@sevenstac)
 
 **A Laravel 13 + Firebase starter kit.** Firebase Authentication, an admin panel driven by custom claims, Cloud Firestore CRUD, push notifications and a REST API that accepts Firebase ID tokens. No SQL database is needed.
 
@@ -22,7 +25,18 @@
 
 <p align="center"><img src=".github/screenshots/login.png" width="32%" alt="Login"> <img src=".github/screenshots/dashboard.png" width="32%" alt="Dashboard"> <img src=".github/screenshots/notes.png" width="32%" alt="Firestore notes"></p>
 
-📖 **Full documentation: [suhasrkms.github.io/lara-fire-docs.html](https://suhasrkms.github.io/lara-fire-docs.html)**
+## 📖 Documentation
+
+The full docs are at **[suhasrkms.github.io/lara-fire-docs.html](https://suhasrkms.github.io/lara-fire-docs.html)**.
+
+| Getting started | Features | Guides |
+|---|---|---|
+| [Requirements](https://suhasrkms.github.io/lara-fire-docs.html#requirements) | [Authentication](https://suhasrkms.github.io/lara-fire-docs.html#authentication) | [How it works](https://suhasrkms.github.io/lara-fire-docs.html#architecture) |
+| [Installation](https://suhasrkms.github.io/lara-fire-docs.html#installation) | [Google & GitHub login](https://suhasrkms.github.io/lara-fire-docs.html#social-login) | [Customizing](https://suhasrkms.github.io/lara-fire-docs.html#customizing) |
+| [Firebase setup](https://suhasrkms.github.io/lara-fire-docs.html#firebase-setup) | [Admin panel & roles](https://suhasrkms.github.io/lara-fire-docs.html#admin) | [Testing](https://suhasrkms.github.io/lara-fire-docs.html#testing) |
+| [Configuration (.env)](https://suhasrkms.github.io/lara-fire-docs.html#configuration) | [Cloud Firestore](https://suhasrkms.github.io/lara-fire-docs.html#firestore) | [Deployment](https://suhasrkms.github.io/lara-fire-docs.html#deployment) |
+| [Running the app](https://suhasrkms.github.io/lara-fire-docs.html#running) | [Push notifications](https://suhasrkms.github.io/lara-fire-docs.html#push) | [Troubleshooting](https://suhasrkms.github.io/lara-fire-docs.html#troubleshooting) |
+| [Upgrading from v1](https://suhasrkms.github.io/lara-fire-docs.html#upgrading) | [REST API](https://suhasrkms.github.io/lara-fire-docs.html#api) | [FAQ](https://suhasrkms.github.io/lara-fire-docs.html#faq) |
 
 ## Quick start
 
