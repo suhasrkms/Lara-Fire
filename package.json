@@ -9,7 +9,7 @@
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.8",
-        "firebase": "^12.19.0"
+        "firebase": "^13.0.0"
     },
     "devDependencies": {
         "concurrently": "^9.2.0",
